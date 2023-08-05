@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alert</title>
+</head>
+<body>
+    <h3>Exercise 1: Alert</h3>
+    <button onclick={hello()}>Click for alert</button>
+    <h3>Exercise 2: Prompt</h3>
+    <button onclick={promptCheck()}>check Prompt</button>
+    <h3>Exercise 3: Confirm</h3>
+    <button onclick="confirmDialog()">confirm Delete</button>
+    <h3>Exercise 4: Combination of Alert, Prompt, and Confirm</h3>
+    <button onclick="voterCheck()">confirm Age</button>
+    <h3>Exercise 5: Interactive Game</h3>
+    <button onclick="play()">Lets Play</button>
+
+</body>
+<script>
+    hello=()=>{
+        alert("Hello Everyone");
+    }
+    promptCheck=()=>{
+        let name = "";
+        let userInput = prompt("Please input your name");
+        if (userInput != null && userInput.length !== 0) {
+            name = userInput;
+            alert(`Hello ${name}, A very Goodmorning to you.`)
+        }
+    }
+    confirmDialog =()=>{
+        let result = confirm("Are you sure you want to delete this?");
+        if (result) {
+            alert('you were deleted the item.')
+        }
+        else
+            alert('the item is not deleted.')
+    }
+    voterCheck = () =>{
+        let age = prompt('Please, Enter your age.');
+        let confirmation = confirm("Are you sure about your age?");
+        if(confirmation){
+            alert("ok, your eligible to vote the national election")
+        }
+        else
+            alert("you are not confirm your age so please confirm that.")
+    }
+    play =()=> {
+        givenNumber = 7;
+        let guessNumber = prompt("Guess a number between 1 and 10.");
+        if(givenNumber == guessNumber){
+            alert("Congrats, Your guessed correctly.")
+        }
+        else
+            alert("Sorry, Your guessed is not correct, please try again.")
+    }
+</script>
+</html>
