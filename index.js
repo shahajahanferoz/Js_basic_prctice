@@ -2,7 +2,6 @@ let globalVar = 10;
 
 const callGlobalVar =()=>{
     console.log(globalVar);
-    console.log(functionVar);
     let functionVar = 120;
     console.log(functionVar);
 }
@@ -58,3 +57,5 @@ console.log(copyNumber);
 copyNumber[1] = 100;
 console.log(number);
 console.log(copyNumber);
+
+
