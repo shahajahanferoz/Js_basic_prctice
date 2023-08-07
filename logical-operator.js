@@ -67,9 +67,15 @@ if(myName && myName.length > 0){
 // Display a message using console.log indicating whether the condition is met.
 
 console.log("Exercise 6: Logical Operators in Ternary Operator");
-
+const semester = 10;
+console.log(semester % 2 == 0 && semester >= 0 ? "the value is positive and even": "Either the value is negetive or odd");
 
 // Exercise 7: Complex Logical Expressions
 // Declare variables with numeric values representing test scores and a boolean value representing whether a student completed an assignment.
 // Write an if statement using logical operators to check if the student's average score is above a certain threshold and they completed the assignment.
 // Display a message using console.log indicating whether the student passed or not.
+
+console.log("Exercise 7: Complex Logical Expressions");
+const mark = 8 
+const CompleteAssignment = true;
+console.log(mark > 5 && CompleteAssignment == true ? "He/she is Passed" : "He/She is failed")
