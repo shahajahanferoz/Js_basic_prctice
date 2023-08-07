@@ -21,7 +21,7 @@ const book = {
     author: "Humayon Ahmed",
     year: 2014,
 }
-showBook=(book)=> {
+showBook = (book) => {
     console.log("Book Title: "+ book.title);
     console.log("Book Author: "+ book.author);
     console.log("Book published Year: "+ book.year);
@@ -162,7 +162,7 @@ const object1 = {
 }
 showPropertiesByForin =(obj)=> {
     for (const key in obj) {
-            console.log(obj[key]);
+            console.log(`${key}: ${obj[key]}`);
     }
 }
 
