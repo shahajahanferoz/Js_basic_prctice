@@ -13,6 +13,60 @@
 
     <!-- <script src="./logical-operator.js"></script> -->
     <!-- <script src="./statement.js"></script> -->
-    <script src="./objects.js"></script>
+    <!-- <script src="./objects.js"></script> -->
+
+
+    <script>
+        const person = ['jamal', 'kamal', 'nobi','babu','rahim','robin','safi'];
+        const numbers = [22,23,11,12];
+        person.copyWithin(2)
+        console.log(person);
+        console.log(numbers);
+
+        const ages = [11,13,21,25,11,13,43,16,26];
+        function isVoter(age){
+            return age>18
+        }
+        // const voter = ages.filter((isVoter));
+        // const voter = ages.find((isVoter));
+        const voter = ages.findIndex((isVoter));
+        console.log("voter list",voter);
+
+        //Array fn: every() ..... it's return Boolean value.
+        const studentNumbers = [13,12,43,23,23,7,10,5,7];
+
+        const enoughStudent =(studentNumber)=>{
+            return studentNumber>9;
+        }
+
+        console.log(studentNumbers.every(enoughStudent));
+
+
+
+        // .......map() vs flatMap()...............................//
+
+        const ages2 = [32, 33, 16, 40];
+        const result = ages2.flatMap(ageIncrease);
+        console.log("flapMap fn: ",result);
+        console.log("Map fn: ",ages2.map(ageIncrease));
+        function ageIncrease(age) {
+            return [age+3];
+        }
+
+        //...........some() vs every ().........these two fn return Boolean "true/false".................//
+        const moneyNotes = [500,20,100,50,10,200];
+        console.log("every():  ",moneyNotes.every((note)=>{
+            return note >= 100
+        }));
+        console.log("some():  ", moneyNotes.some((note)=> {
+            return note >= 100;
+        }));
+
+        //......... include()... it's check the parameter is included in the array.........It's return Boolean("true/false");
+        console.log( moneyNotes.includes(500)); // it's mreturn true
+        
+
+
+    </script>
 </body>
 </html>
