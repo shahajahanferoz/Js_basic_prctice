@@ -30,7 +30,7 @@
         // const voter = ages.filter((isVoter));
         // const voter = ages.find((isVoter));
         const voter = ages.findIndex((isVoter));
-        console.log("voter list",voter);
+        console.log("findIndex(): ",voter);
 
         //Array fn: every() ..... it's return Boolean value.
         const studentNumbers = [13,12,43,23,23,7,10,5,7];
@@ -39,7 +39,7 @@
             return studentNumber>9;
         }
 
-        console.log(studentNumbers.every(enoughStudent));
+        console.log("every(): ",studentNumbers.every(enoughStudent));
 
 
 
@@ -47,7 +47,7 @@
 
         const ages2 = [32, 33, 16, 40];
         const result = ages2.flatMap(ageIncrease);
-        console.log("flapMap fn: ",result);
+        console.log("flatMap fn: ",result);
         console.log("Map fn: ",ages2.map(ageIncrease));
         function ageIncrease(age) {
             return [age+3];
@@ -63,10 +63,24 @@
         }));
 
         //......... include()... it's check the parameter is included in the array.........It's return Boolean("true/false");
-        console.log( moneyNotes.includes(500)); // it's mreturn true
+        console.log("include(): ", moneyNotes.includes(500)); // it's mreturn true
         
+        // ..........forEach()..........
+        const printNote =(note,index)=> {
+            console.log('Using forEach(): index of note: ' + index + " => " + note);
+        }
+        moneyNotes.forEach(printNote);
 
-
-    </script>
+        //..........includes().........It's return boolean......
+        let languages = ["JavaScript", "Python", "Java", "C", "C++"];
+        console.log(languages.includes("Python"));
+        console.log(languages.includes("Python",2)); 
+        console.log(languages.join(" & ")); 
+        
+        const iterator = languages.keys()
+        for (let key of iterator) { 
+            console.log(key); 
+        } 
+        </script>
 </body>
 </html>
