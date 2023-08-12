@@ -58,4 +58,19 @@ function showPreview(event) {
   const course = document.getElementById('course')
   course.addEventListener("change",creditOption);
 
+
+  // validation
+
+document.getElementById("submitButton").addEventListener('click',(event)=>{
+  const studentName = document.getElementById("studentName");
+  const fatherName = document.getElementById("fatherName").value;
+  const motherName = document.getElementById("motherName").value;
+
+  if (studentName.value.length >20 || studentName.value.length < 3) {
+    
+  }
+})
+
+  
+
  
