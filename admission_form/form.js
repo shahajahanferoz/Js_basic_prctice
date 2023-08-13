@@ -63,8 +63,8 @@ function showPreview(event) {
 
 document.getElementById("submitButton").addEventListener('click',(event)=>{
   const studentName = document.getElementById("studentName");
-  const fatherName = document.getElementById("fatherName").value;
-  const motherName = document.getElementById("motherName").value;
+  const fatherName = document.getElementById("fatherName");
+  const motherName = document.getElementById("motherName");
 
   if (studentName.value.length >20 || studentName.value.length < 3) {
     

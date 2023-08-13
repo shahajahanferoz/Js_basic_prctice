@@ -20,13 +20,25 @@
                 </div>
                 
     
-                <div class="dis-flex label-input">
+                <!-- <div class="dis-flex label-input">
                     <label>Student Image: </label>
                     <input type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);"><br><br>
                     <div class="preview">
                         <img id="file-ip-1-preview" />
                     </div>
+                </div> -->
+
+                <div class="label-input imageDiv" >
+                    <label>Student Image: </label>
+                    <div class="imageShow" >
+                        
+                        <label for="file-ip-1"><img id="file-ip-1-preview" src="/uplaod.jpg"/></label>
+                        <input type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);">
+                        <!-- <img id="file-ip-1-preview" src="/Icon.png"/> -->
+                    </div>
                 </div>
+                
+                
                 <div class="label-input">
                     <label class="label-of-input" for="studentName">Student Name:</label>
                     <input class="input-field" type="text" id="studentName" name="studentName" placeholder="Student Full Name" maxlength="30"  >
