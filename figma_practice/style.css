@@ -74,7 +74,7 @@
     line-height: 26.138px; /* 133.333% */
 }
 .card img{
-    width: 90%;
+    width: 100%;
     height: auto;
 }
 .card-sub-title{
@@ -98,4 +98,10 @@
     font-style: normal;
     font-weight: 600;
     line-height: 43.564px;
+}
+
+hr{
+    border-top: 1px dashed rgb(25, 26, 27);
+    height: 3px;
+    width: 80%;
 }
