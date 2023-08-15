@@ -1,0 +1,81 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: linear-gradient(to right, #a799a7, #a1caf0);
+
+}
+#cart:hover{
+    cursor: pointer;
+}
+.top-bar{
+    padding-top: 35px;
+    padding-right: 42px;
+    text-align: end;
+    font-size: 27px;
+}
+header > span{
+    background-color: red;
+    border-radius: 50%;
+    color: #FFF;
+}
+.cart-container{
+    display: flex;
+    justify-content: center;
+}
+#cart-item{
+    position: relative;
+    width: 600px;
+    min-height: 450px;
+    background: #ece8e8;
+    display: none;
+}
+.products {
+    padding: 30px 10px;
+    font-size: 23px;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    column-gap: 10px;
+    row-gap: 15px;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+.item{
+    display: grid;
+    align-content: center;
+    background: #4a706c;
+    justify-content: center;
+    border: 2px solid black;
+    min-height: 150px;
+    min-width: 150px;
+}
+.item:hover{
+    background: #909e9c;
+
+}
+
+ /* Style the close button */
+ .close {
+    position: absolute;
+    right: 0;
+    /* top: 0; */
+    padding: 12px 16px 12px 16px;
+    background: #979393;
+  }
+
+  .close:hover {
+    background-color: #f44336;
+    color: white;
+  }
+
+  .add-cart-btn{
+    padding: 12px;
+    background: #977d7d;
+    cursor: pointer;
+  }
+  .add-cart-btn:hover{
+    background-color: #a1caf0;
+  }
