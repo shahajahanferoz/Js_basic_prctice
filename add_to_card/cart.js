@@ -192,7 +192,7 @@ function initApp(){
             <img src="image/${value.image}">
             <div class="title">${value.name}</div>
             <div class="price">${value.price.toLocaleString()}</div>
-            ${listCards.find((item)=> item.id === value.id) ? `<button id="button${value.id}" class="addBtn">Already Added!</button>` : `<button id="button${value.id}" class="addBtn" onclick="addToCard(${key})">${value.btnText}</button>`}`;
+            ${listCards.find((item)=> item.id === value.id) ? `<button id="button${value.id}" class="addBtn" onclick="addToCard(${key})">Already Added!</button>` : `<button id="button${value.id}" class="addBtn" onclick="addToCard(${key})">${value.btnText}</button>`}`;
         list.appendChild(newDiv);
     })
 }
@@ -206,13 +206,37 @@ function addToCard(key){
         const selectedProduct = products[key]
         listCards = [...listCards, {...selectedProduct, quantity: 1}]
         // console.log("list Card 2", listCards);
-        for(const key in listCards){
-            console.log(listCards[key]);
-        }
+        document.getElementById(`button${selectedProduct.id}`).innerText = "Already Added!";
+        
+        // for(const key in listCards){
+        //     const id = listCards[key].id;
+        // }
+        // console.log(key);
+        // console.log(listCards);
+        // const id = listCards[key].id;
+        // document.getElementById(`button${id}`).innerText = "Already Added!"
+        
 
         localStorage.setItem("listCards", [JSON.stringify(listCards)]);
-    } else {
-        changeQuantity(key, listCards[key].quantity + 1)
+    } 
+    else {
+        // changeQuantity(key, listCards[key].quantity + 1)\
+        // const selectedProduct = listCards.find(product => product.id == products[key].id);
+        // console.log(selectedProduct);
+        // if(selectedProduct){
+        //     // changeQuantity(key, listCards[key].quantity + 1)
+
+        // }
+        // console.log(products[key].id);
+        const productID = products[key].id 
+        for (const key in listCards) {
+        //    console.log(listCards[key]);
+           if(listCards[key].id == productID ){
+            changeQuantity(key, listCards[key].quantity + 1)
+           }
+        }
+
+        
     }
    
     reloadCard();
@@ -249,7 +273,12 @@ function reloadCard(){
 }
 function changeQuantity(key, quantity){
     if(quantity == 0){
+        const id = listCards[key].id;
+        document.getElementById(`button${id}`).innerText = "Add to Card"
+        // remove the iteam from cart list
         listCards.splice(key,1);
+
+        
         // delete listCards[key];
     }else{
         listCards[key].quantity = quantity;
