@@ -18,6 +18,8 @@ const TodoList = () => {
     }else{
         const editableTask = list.find((todo) => todo.id === editId);
     editableTask.todo = inputTask;
+    setList(list);
+    console.log(list);
         setEditId(0)
     }
     setInputTask("");
