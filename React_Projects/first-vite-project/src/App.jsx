@@ -1,6 +1,7 @@
+import React from "react";
 import { Route, Routes } from "react-router-dom";
+// import About from "./components/About";
 import { Home } from "./components/Home";
-import { About } from "./components/About";
 import { Services } from "./components/Services";
 import Navbar from "./components/Navbar";
 import { Fragment } from "react";
@@ -12,6 +13,8 @@ import Products from "./components/Products";
 import Users from "./components/Users";
 import UserDetails from "./components/UserDetails";
 import { UserAdmin } from "./components/UserAdmin";
+import Profile from "./components/Profile";
+const LazyAbout = React.lazy(() => import('./components/About'))
 
 function App() {
   return (
@@ -19,7 +22,12 @@ function App() {
       <Navbar />
         <Routes>
           <Route path="/" Component={Home} />
-          <Route path="about" element={<About />} />
+          <Route path="about" element={
+            <React.Suspense fallback='Loooading........When We use it'>
+              <LazyAbout />
+            </React.Suspense>
+            } 
+          />
           <Route path="order-summary" element={<OrderSummary />} />
           <Route path="products" element={<Products />}>
             <Route index element={<FeaturedProduct />} />
@@ -31,6 +39,7 @@ function App() {
             <Route path="admin" element={<UserAdmin />} />
           </Route>
           <Route path="/services" Component={Services} />
+          <Route path="profile" element={<Profile />} />
           <Route path="*" Component={NoMatch}></Route>
         </Routes>
       </Fragment>

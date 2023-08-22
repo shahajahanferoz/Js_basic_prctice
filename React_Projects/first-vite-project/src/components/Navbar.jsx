@@ -26,6 +26,9 @@ function Navbar() {
             <li>
                 <NavLink style={navLinkStyle} to="/services">Services</NavLink>
             </li>
+            <li>
+                <NavLink style={navLinkStyle} to="/profile">Profile</NavLink>
+            </li>
         </ul>
     </nav>
   )
