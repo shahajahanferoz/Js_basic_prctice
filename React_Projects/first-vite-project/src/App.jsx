@@ -13,35 +13,41 @@ import Products from "./components/Products";
 import Users from "./components/Users";
 import UserDetails from "./components/UserDetails";
 import { UserAdmin } from "./components/UserAdmin";
-import Profile from "./components/Profile";
+import { Profile } from "./components/Profile";
+import { AuthProvider } from "./components/auth";
+import Login from "./components/Login";
+import RequireAuth from "./components/RequireAuth";
 const LazyAbout = React.lazy(() => import('./components/About'))
 
 function App() {
   return (
       <Fragment>
-      <Navbar />
-        <Routes>
-          <Route path="/" Component={Home} />
-          <Route path="about" element={
-            <React.Suspense fallback='Loooading........When We use it'>
-              <LazyAbout />
-            </React.Suspense>
-            } 
-          />
-          <Route path="order-summary" element={<OrderSummary />} />
-          <Route path="products" element={<Products />}>
-            <Route index element={<FeaturedProduct />} />
-            <Route path="featured" element={<FeaturedProduct />} />
-            <Route path="new" element={<NewProduct />} />
-          </Route>
-          <Route path="users" element={<Users />}>
-            <Route path=":userId" element={<UserDetails />} />
-            <Route path="admin" element={<UserAdmin />} />
-          </Route>
-          <Route path="/services" Component={Services} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="*" Component={NoMatch}></Route>
-        </Routes>
+        <AuthProvider>
+          <Navbar />
+            <Routes>
+              <Route path="/" Component={Home} />
+              <Route path="about" element={
+                <React.Suspense fallback='Loooading........When We use it'>
+                  <LazyAbout />
+                </React.Suspense>
+                } 
+              />
+              <Route path="order-summary" element={<OrderSummary />} />
+              <Route path="products" element={<Products />}>
+                <Route index element={<FeaturedProduct />} />
+                <Route path="featured" element={<FeaturedProduct />} />
+                <Route path="new" element={<NewProduct />} />
+              </Route>
+              <Route path="users" element={<Users />}>
+                <Route path=":userId" element={<UserDetails />} />
+                <Route path="admin" element={<UserAdmin />} />
+              </Route>
+              <Route path="/services" Component={Services} />
+              <Route path="profile" element={ <RequireAuth> <Profile /> </RequireAuth>} />
+              <Route path="login" element={<Login />} />
+              <Route path="*" Component={NoMatch}></Route>
+            </Routes>
+        </AuthProvider>
       </Fragment>
   );
 }

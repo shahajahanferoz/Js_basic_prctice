@@ -1,6 +1,6 @@
 // This file perhaps belongs in a separate "utils folder" 
 
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext(null)
 
@@ -12,7 +12,7 @@ export const AuthProvider = ({children}) => {
     }
 
     const logout = () => {
-        setUser(null);
+        setUser(null)
     }
 
     return (
@@ -20,4 +20,6 @@ export const AuthProvider = ({children}) => {
     )
 }
 
-export const 
+export const useAuth = () => {
+    return useContext(AuthContext)
+}
