@@ -17,6 +17,7 @@ import { Profile } from "./components/Profile";
 import { AuthProvider } from "./components/auth";
 import Login from "./components/Login";
 import RequireAuth from "./components/RequireAuth";
+import {ButtonUsage,  MuiTypography } from "./components/MuiTypography";
 const LazyAbout = React.lazy(() => import('./components/About'))
 
 function App() {
@@ -45,6 +46,8 @@ function App() {
               <Route path="/services" Component={Services} />
               <Route path="profile" element={ <RequireAuth> <Profile /> </RequireAuth>} />
               <Route path="login" element={<Login />} />
+              <Route path="typography" element={<MuiTypography />} />
+              <Route path="mui-button" element={<ButtonUsage />} />
               <Route path="*" Component={NoMatch}></Route>
             </Routes>
         </AuthProvider>
