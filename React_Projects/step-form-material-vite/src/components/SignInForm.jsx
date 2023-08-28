@@ -68,7 +68,7 @@ function SignInForm() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link to="reset-password" variant="body2">
+              <Link to="/reset-password" variant="body2">
                 Forgot password?
               </Link>
             </Grid>

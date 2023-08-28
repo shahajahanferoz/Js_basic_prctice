@@ -17,41 +17,51 @@ import { Profile } from "./components/Profile";
 import { AuthProvider } from "./components/auth";
 import Login from "./components/Login";
 import RequireAuth from "./components/RequireAuth";
-import {ButtonUsage,  MuiTypography } from "./components/MuiTypography";
-const LazyAbout = React.lazy(() => import('./components/About'))
+import { ButtonUsage, MuiTypography } from "./components/MuiTypography";
+const LazyAbout = React.lazy(() => import("./components/About"));
 
 function App() {
   return (
-      <Fragment>
-        <AuthProvider>
-          <Navbar />
-            <Routes>
-              <Route path="/" Component={Home} />
-              <Route path="about" element={
-                <React.Suspense fallback='Loooading........When We use it'>
-                  <LazyAbout />
-                </React.Suspense>
-                } 
-              />
-              <Route path="order-summary" element={<OrderSummary />} />
-              <Route path="products" element={<Products />}>
-                <Route index element={<FeaturedProduct />} />
-                <Route path="featured" element={<FeaturedProduct />} />
-                <Route path="new" element={<NewProduct />} />
-              </Route>
-              <Route path="users" element={<Users />}>
-                <Route path=":userId" element={<UserDetails />} />
-                <Route path="admin" element={<UserAdmin />} />
-              </Route>
-              <Route path="/services" Component={Services} />
-              <Route path="profile" element={ <RequireAuth> <Profile /> </RequireAuth>} />
-              <Route path="login" element={<Login />} />
-              <Route path="typography" element={<MuiTypography />} />
-              <Route path="mui-button" element={<ButtonUsage />} />
-              <Route path="*" Component={NoMatch}></Route>
-            </Routes>
-        </AuthProvider>
-      </Fragment>
+    <Fragment>
+      <AuthProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/" Component={Home} />
+          <Route
+            path="about"
+            element={
+              <React.Suspense fallback="Loooading........When We use it">
+                <LazyAbout />
+              </React.Suspense>
+            }
+          />
+          <Route path="order-summary" element={<OrderSummary />} />
+          <Route path="products" element={<Products />}>
+            <Route index element={<FeaturedProduct />} />
+            <Route path="featured" element={<FeaturedProduct />} />
+            <Route path="new" element={<NewProduct />} />
+          </Route>
+          <Route path="users" element={<Users />}>
+            <Route path=":userId" element={<UserDetails />} />
+            <Route path="admin" element={<UserAdmin />} />
+          </Route>
+          <Route path="/services" Component={Services} />
+          <Route
+            path="profile"
+            element={
+              <RequireAuth>
+                {" "}
+                <Profile />{" "}
+              </RequireAuth>
+            }
+          />
+          <Route path="login" element={<Login />} />
+          <Route path="typography" element={<MuiTypography />} />
+          <Route path="mui-button" element={<ButtonUsage />} />
+          <Route path="*" Component={NoMatch}></Route>
+        </Routes>
+      </AuthProvider>
+    </Fragment>
   );
 }
 
