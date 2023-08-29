@@ -3,39 +3,43 @@ import Sidenav from "../Sidenav";
 import Navbar from "../Navbar";
 import { Box, Card, CardContent, Grid, Stack, Typography } from "@mui/material";
 import "../../Dash.css"
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import AccordionDash from "../AccordionDash";
+import BarChart from "../chart/BarChart";
 
 function Home() {
   return (
-    <Fragment>
-      <Navbar />
-      <Box height={70} />
-      <Box sx={{ display: "flex" }}>
-        <Sidenav />
+    <Fragment >
+      <div className="bg-color">
+        <Navbar />
+       <Box height={70} />
+        <Box sx={{ display: "flex" }}>
+          <Sidenav />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={8}>
               <Stack spacing={2} direction="row">
-                <Card sx={{ maxWidth: 49 + '%', height: 140 }}>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      Lizard
+                <Card className="gradient" sx={{ minWidth: 49 + '%', height: 150, }}>
+                  <CardContent >
+                  <div className="icon-style"><CreditCardIcon /></div>
+                    <Typography gutterBottom variant="h5" component="div" sx={{color: '#fff'}}>
+                      $53,00.00
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Lizards are a widespread group of squamate reptiles, with
-                      over 6,000 species, ranging across all continents except
-                      Antarctica
+                    <Typography gutterBottom  variant="body2" component="div" sx={{color: "#ccd1d1"}}>
+                      Total Earning
                     </Typography>
                   </CardContent>
                 </Card>
-                <Card sx={{ maxWidth: 49 + '%', height: 140  }}>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      Lizard
+                <Card  sx={{ minWidth: 49 + '%', height: 150  }}>
+                  <CardContent className="gradient-light">
+                    <div className="icon-style"><ShoppingBagIcon /></div>
+                    <Typography gutterBottom variant="h5" component="div" sx={{color: '#fff'}}>
+                      $76,0.00
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Lizards are a widespread group of squamate reptiles, with
-                      over 6,000 species, ranging across all continents except
-                      Antarctica
+                    <Typography gutterBottom  variant="body2" component="div" sx={{color: "#ccd1d1"}}>
+                      Total Order
                     </Typography>
                   </CardContent>
                 </Card>
@@ -43,18 +47,27 @@ function Home() {
             </Grid>
             <Grid item xs={4}>
               <Stack spacing={2}>
-              <Card sx={{ maxWidth: 345 }}>
-                  <CardContent>
-                   <div>
-                   <span>$203k</span>
-                   <span>Total Income</span>
-                   </div>
-                  </CardContent>
+              <Card sx={{ maxWidth: 345 }} >
+                  <Stack spacing={2} direction="row" className="gradient-light">
+                      <div className="icon-style"><StorefrontIcon /></div>
+                      <div className="padding-all">
+                      <Stack>
+                      <span className="price-title">$203k</span>
+                      <span className="price-subtitle">Total Income</span>
+                      </Stack>
+                      </div>
+                  </Stack>
                 </Card>
                 <Card sx={{ maxWidth: 345 }}>
-                  <CardContent>
-                    
-                  </CardContent>
+                  <Stack spacing={2} direction="row">
+                      <div className="icon-style-black"><StorefrontIcon /></div>
+                      <div className="padding-all">
+                      <Stack>
+                      <span className="price-title">$203k</span>
+                      <span className="price-subtitle">Total Income</span>
+                      </Stack>
+                      </div>
+                    </Stack>
                 </Card>
               </Stack>
             </Grid>
@@ -65,20 +78,25 @@ function Home() {
             <Grid item xs={8}>
               <Card sx={{ height: 60 + 'vh'  }}>
                   <CardContent>
-                    
+                    <BarChart />
                   </CardContent>
               </Card>
             </Grid>
             <Grid item xs={4}>
               <Card sx={{ height: 60 + 'vh' }}>
                   <CardContent>
-                    
+                    <div className="padding-all">
+                      <span className="price-title">Popular Product</span>
+                    </div>
+                    <AccordionDash />
                   </CardContent>
               </Card>
             </Grid>
           </Grid>
         </Box>
       </Box>
+      </div>
+     
     </Fragment>
   );
 }
