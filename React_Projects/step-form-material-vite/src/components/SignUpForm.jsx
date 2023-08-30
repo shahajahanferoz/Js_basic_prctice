@@ -13,6 +13,7 @@ import {
 import LockPersonIcon from "@mui/icons-material/LockPerson";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function SignUpForm() {
   const theme = createTheme();
@@ -20,10 +21,30 @@ function SignUpForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    // console.log({
+    //   email: data.get("email"),
+    //   password: data.get("password"),
+    //   firstname: data.get("firstName"),
+    //   lastname: data.get("lastName"),
+    // });
+
+    const data2 = {
       email: data.get("email"),
       password: data.get("password"),
-    });
+      firstname: data.get("firstName"),
+      lastname: data.get("lastName"),
+    };
+    console.log(data2);
+
+    axios
+      .post("http://192.168.68.113:3000/users", data2)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log("Error :", error);
+      });
+
   };
 
   return (
@@ -94,7 +115,9 @@ function SignUpForm() {
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value="agreedUserTerm" color="primary" required/>}
+                  control={
+                    <Checkbox value="agreedUserTerm" color="primary" required />
+                  }
                   label="I agree the term of User"
                 />
               </Grid>
@@ -107,7 +130,7 @@ function SignUpForm() {
             >
               Sign Up
             </Button>
-            <Grid container justifyContent="flex-end" sx={{mb: 3, mt:2}}>
+            <Grid container justifyContent="flex-end" sx={{ mb: 3, mt: 2 }}>
               <Grid item>
                 Already have an account?
                 <Link to="/login" variant="body">
