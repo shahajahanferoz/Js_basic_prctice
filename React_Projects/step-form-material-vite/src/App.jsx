@@ -7,6 +7,7 @@ import Home from "./components/pages/Home";
 import About from "./components/pages/About";
 import Settings from "./components/pages/Settings";
 import Countries from "./components/pages/Countries";
+import UserList from "./components/UserList";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/countries" element={<Countries />} />
+        <Route path="/users" element={<UserList />} />
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/login" element={<SignInForm />} />
         <Route path="/reset-password" element={<ResetPassword />} />

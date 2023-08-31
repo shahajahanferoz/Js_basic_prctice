@@ -36,14 +36,16 @@ function SignUpForm() {
     };
     console.log(data2);
 
-    axios
-      .post("http://192.168.68.113:3000/users", data2)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log("Error :", error);
-      });
+    // axios
+    //   .post("http://192.168.68.113:3002/users", data2)
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log("Error :", error);
+    //   });
+
+      event.target.reset()
 
   };
 
@@ -116,7 +118,7 @@ function SignUpForm() {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
-                    <Checkbox value="agreedUserTerm" color="primary" required />
+                    <Checkbox checked color="primary" required />
                   }
                   label="I agree the term of User"
                 />
