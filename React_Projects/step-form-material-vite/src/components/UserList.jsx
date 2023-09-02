@@ -9,6 +9,8 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import axios from "axios";
 import { Button, Typography } from "@mui/material";
+import { Outlet, useNavigate } from "react-router-dom";
+
 
 const columns2 = [
   { id: "userName", label: "User Name", align: "center", minWidth: 170 },
@@ -17,6 +19,7 @@ const columns2 = [
 
 export default function UserList() {
   ////////////////////////////////////////////////////////////////////////////
+  const navigate = useNavigate();
   const [users, setUsers] = React.useState([]);
 
   const getUser = () => {
@@ -35,6 +38,7 @@ export default function UserList() {
   React.useEffect(() => {
     getUser();
   }, []);
+
 
   const deleteUser = (id) => {
     axios.delete(`http://192.168.68.113:3002/users/${id}`).then((res) => {
@@ -57,6 +61,7 @@ export default function UserList() {
 
   return (
     <Paper sx={{ width: "100%" }}>
+      <Outlet />
       <TableContainer sx={{ maxHeight: 530 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -94,6 +99,13 @@ export default function UserList() {
                     <TableCell align="center"> {user.email}</TableCell>
                     <TableCell align="center"> {user.password}</TableCell>
                     <TableCell align="center">
+                      <Button
+                        variant="outlined"
+                        color="error"
+                        onClick={()=> navigate(`update/${user.id}`, {state: {user}})}
+                      >
+                        Edit
+                      </Button>
                       <Button
                         variant="outlined"
                         color="error"

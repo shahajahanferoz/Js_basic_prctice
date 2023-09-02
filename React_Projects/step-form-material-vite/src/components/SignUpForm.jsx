@@ -14,13 +14,26 @@ import LockPersonIcon from "@mui/icons-material/LockPerson";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useState } from "react";
 
 function SignUpForm() {
+  const [user, setUser] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
+  let {firstname: firstName, lastname: lastName, email, password} = user;
   const theme = createTheme();
+
+  const handleChange = (event) => {
+    console.log(event.target.name, event.target.value);
+    setUser({ ...user, [event.target.name]: event.target.value });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    // const data = new FormData(event.currentTarget);
     // console.log({
     //   email: data.get("email"),
     //   password: data.get("password"),
@@ -28,25 +41,28 @@ function SignUpForm() {
     //   lastname: data.get("lastName"),
     // });
 
-    const data2 = {
-      email: data.get("email"),
-      password: data.get("password"),
-      firstname: data.get("firstName"),
-      lastname: data.get("lastName"),
-    };
-    console.log(data2);
+    // const data2 = {
+    //   email: data.get("email"),
+    //   password: data.get("password"),
+    //   firstname: data.get("firstName"),
+    //   lastname: data.get("lastName"),
+    // };
+    // console.log(data2);
 
-    // axios
-    //   .post("http://192.168.68.113:3002/users", data2)
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log("Error :", error);
-    //   });
-
-      event.target.reset()
-
+    console.log(user);
+    
+    axios
+    .post("http://192.168.68.113:3002/users", user)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log("Error :", error);
+    });
+    
+    setUser(()=>({firstname:'',lastname:'',email:'',password:''}))
+    // event.target.reset()
+    console.log(user);
   };
 
   return (
@@ -79,11 +95,13 @@ function SignUpForm() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  name="firstName"
+                  name="firstname"
                   required
                   fullWidth
                   id="firstName"
                   label="First Name"
+                  onChange={handleChange}
+                  value={firstName}
                   autoFocus
                 />
               </Grid>
@@ -93,7 +111,9 @@ function SignUpForm() {
                   fullWidth
                   id="lastName"
                   label="Last Name"
-                  name="lastName"
+                  name="lastname"
+                  value={lastName}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -103,6 +123,8 @@ function SignUpForm() {
                   id="email"
                   label="Email Address"
                   name="email"
+                  value={email}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -110,16 +132,16 @@ function SignUpForm() {
                   required
                   fullWidth
                   name="password"
+                  id="password"
                   label="Password"
                   type="password"
-                  id="password"
+                  value={password}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={
-                    <Checkbox checked color="primary" required />
-                  }
+                  control={<Checkbox checked color="primary" required />}
                   label="I agree the term of User"
                 />
               </Grid>

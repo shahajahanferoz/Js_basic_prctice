@@ -8,6 +8,7 @@ import About from "./components/pages/About";
 import Settings from "./components/pages/Settings";
 import Countries from "./components/pages/Countries";
 import UserList from "./components/UserList";
+import UserUpdate from "./components/UserUpdate";
 
 function App() {
   return (
@@ -19,7 +20,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/countries" element={<Countries />} />
-        <Route path="/users" element={<UserList />} />
+        <Route path="/users" element={<UserList />} >
+          <Route path="update/:id" element={<UserUpdate />} />
+          <Route path="read/:id" element={<UserUpdate />} />
+        </Route>
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/login" element={<SignInForm />} />
         <Route path="/reset-password" element={<ResetPassword />} />
