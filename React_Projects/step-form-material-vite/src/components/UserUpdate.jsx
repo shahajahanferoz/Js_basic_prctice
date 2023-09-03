@@ -12,7 +12,7 @@ import {
   } from "@mui/material";
   import LockPersonIcon from "@mui/icons-material/LockPerson";
   import axios from "axios";
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 
 function UserUpdate() {
@@ -24,6 +24,8 @@ function UserUpdate() {
   });
   const {id} = useParams();
   const { state } = useLocation();
+  console.log("state : ",state.user);
+  const navigate = useNavigate();
 
   let {firstname, lastname, email, password} = user;
 
@@ -159,7 +161,7 @@ function UserUpdate() {
         </Box>
         <Button
             variant="contained"
-            onClick={()=> navigator(-1)}
+            onClick={()=> navigate('/users')}
             sx={{ mt: 3, mb: 2 }}
         >
             Back to List

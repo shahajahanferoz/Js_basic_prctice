@@ -8,7 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import axios from "axios";
-import { Button, Typography } from "@mui/material";
+import { Avatar, Box, Button, Checkbox, FormControlLabel, Grid, TextField, Typography } from "@mui/material";
+import LockPersonIcon from "@mui/icons-material/LockPerson";
 import { Outlet, useNavigate } from "react-router-dom";
 
 
@@ -39,6 +40,54 @@ export default function UserList() {
     getUser();
   }, []);
 
+  ///////////////////////////
+
+  const [showEditForm, setShowEditForm] = React.useState(false);
+
+  const [editId, setUserId] = React.useState(0)
+  const [user, setUser] = React.useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
+  let {firstname, lastname, email, password} = user;
+
+  const handleChange = (event) => {
+    setUser({ ...user, [event.target.name]: event.target.value });
+  };
+  const handleUpdate = (event) => {
+    event.preventDefault();
+    
+    axios
+    .put(`http://192.168.68.113:3002/users/${editId}`, user)
+    .then(function (response) {
+      console.log(response);
+      getUser();
+    })
+    .catch(function (error) {
+      console.log("Error :", error);
+    });
+    
+    setUser(()=>({firstname:'',lastname:'',email:'',password:''}))
+
+  };
+
+  const updateUser = (id) => {
+    setShowEditForm(true);
+    axios
+    .get(`http://192.168.68.113:3002/users/${id}`)
+    .then(function (response) {
+      // console.log(response.data);
+      setUser(response.data);
+      setUserId(id)
+
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
+  }
 
   const deleteUser = (id) => {
     axios.delete(`http://192.168.68.113:3002/users/${id}`).then((res) => {
@@ -61,7 +110,107 @@ export default function UserList() {
 
   return (
     <Paper sx={{ width: "100%" }}>
-      <Outlet />
+      {/* <Outlet /> */}
+      {
+        showEditForm && 
+        <Box
+            sx={{
+            marginTop: 8,
+            mb: 5,
+            boxShadow: 4,
+            borderRadius: 2,
+            px: 4,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            }}
+        >
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockPersonIcon />
+            </Avatar>
+            <Typography variant="h4" component="h4">
+            Update Data
+            </Typography>
+            <Box
+            component="form"
+            onSubmit={handleUpdate}
+            sx={{ mt: 3 }}
+            autoComplete="off"
+            >
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                <TextField
+                    name="firstname"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    value={firstname}
+                    onChange={handleChange}
+                    autoFocus
+                />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                <TextField
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastname"
+                    value={lastname}
+                    onChange={handleChange}
+                />
+                </Grid>
+                <Grid item xs={12}>
+                <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    value={email}
+                    onChange={handleChange}
+                />
+                </Grid>
+                <Grid item xs={12}>
+                <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    id="password"
+                    label="Password"
+                    type="password"
+                    value={password}
+                    onChange={handleChange}
+                />
+                </Grid>
+                <Grid item xs={12}>
+                <FormControlLabel
+                    control={<Checkbox checked color="primary" required />}
+                    label="I agree the term of User"
+                />
+                </Grid>
+            </Grid>
+            <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+            >
+                Update
+            </Button>
+            <Button
+            variant="contained"
+            onClick={()=> setShowEditForm(false)}
+            sx={{ mt: 3, mb: 2 }}
+        >
+            Close This Form
+        </Button>
+            </Box>
+        </Box>
+      }
+
+
       <TableContainer sx={{ maxHeight: 530 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -102,7 +251,8 @@ export default function UserList() {
                       <Button
                         variant="outlined"
                         color="error"
-                        onClick={()=> navigate(`update/${user.id}`, {state: {user}})}
+                        // onClick={()=> navigate(`update/${user.id}`, {state: {user}})}
+                        onClick={() => updateUser(user.id)}
                       >
                         Edit
                       </Button>
