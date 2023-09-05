@@ -21,22 +21,6 @@ const columns2 = [
 
 export default function UserList() {
   const [users, setUsers] = React.useState([]);
-
-  const getUser = () => {
-    axios
-      .get("http://192.168.68.113:3002/users")
-      .then(function (response) {
-        setUsers(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  React.useEffect(() => {
-    getUser();
-  }, []);
-
   const [showEditForm, setShowEditForm] = React.useState(false);
   const [showUserDetails, setShowUserDetails] = React.useState(false);
   const [editId, setUserId] = React.useState(0);
@@ -54,6 +38,20 @@ export default function UserList() {
   });
 
 
+  React.useEffect(() => {
+    axios
+    .get("http://192.168.68.113:3002/users")
+    .then(function (response) {
+      setUsers(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }, []);
+
+  
+
+  console.log('users', users)
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -74,7 +72,8 @@ export default function UserList() {
             user,
             editId,
             setUser,
-            getUser,
+            users,
+            setUsers,
             setShowEditForm,
           }}
         />
@@ -120,14 +119,15 @@ export default function UserList() {
               .map((user) => {
                 return (
                   <SingleUser
-                    info={{
+                    data={{
                       singleUser: user,
                       setShowUserDetails,
                       setUser,
                       setDetailsUser, 
                       setUserId,
                       setShowEditForm,
-                      getUser,
+                      users,
+                      setUsers,
                     }}
                     key={user.id}
                   />

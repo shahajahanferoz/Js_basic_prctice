@@ -3,28 +3,48 @@ import { Avatar, Box, Button, Checkbox, FormControlLabel, Grid, TextField, Typog
 import axios from "axios";
 
 function SinglaUserEdit(props) {
-    const {user, editId, setUser, getUser, setShowEditForm} = props.data;
+    const {user, editId, setUser, users, setUsers, setShowEditForm} = props.data;
     const {firstname, lastname, email, password} = user;
 
 
+
+    // const updateListAfterEdit = () => {
+    //   let editableUser = users.find((user) => user.id === editId);
+    //   const indexNumber = users.indexOf(editableUser);
+    //   users[indexNumber] = user;
+    //   setUsers([...users]);
+
+    // }
+
     const handleChange = (event) => {
-        setUser({ ...user, [event.target.name]: event.target.value });
-      };
-      const handleUpdate = (event) => {
-        event.preventDefault();
-    
-        axios
-          .put(`http://192.168.68.113:3002/users/${editId}`, user)
-          .then(function (response) {
-            console.log(response);
-            getUser();
+      setUser({ ...user, [event.target.name]: event.target.value });
+    };
+
+    const handleUpdate = (event) => {
+      event.preventDefault();
+  
+      axios
+        .put(`http://192.168.68.113:3002/users/${editId}`, user)
+        .then(function (response) {
+          console.log(response);
+          setUsers((prev)=>{
+            return prev.map(item => {
+              if (item.id === user.id) {
+                return user;
+              }
+              else {
+                return item
+              }
+            })
           })
-          .catch(function (error) {
-            console.log("Error :", error);
-          });
-    
-        setUser(() => ({ firstname: "", lastname: "", email: "", password: "" }));
-      };
+          // updateListAfterEdit();
+        })
+        .catch(function (error) {
+          console.log("Error :", error);
+        });
+  
+      setUser(() => ({ firstname: "", lastname: "", email: "", password: "" }));
+    };
 
   return (
     <Box

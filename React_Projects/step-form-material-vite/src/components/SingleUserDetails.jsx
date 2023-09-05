@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from '@mui/material'
 
 function SingleUserDetails(props) {
-    const {detailsUser, setShowUserDetails, getUser } = props.data;
+    const {detailsUser, setShowUserDetails } = props.data;
     const {firstname, lastname, email, password} = detailsUser;
   return (
     <Box
