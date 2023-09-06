@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import SignUpForm from "./components/SignUpForm";
+import SignUpForm2 from "./components/SignUpForm2";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignInForm from "./components/SignInForm";
 import ResetPassword from "./components/ResetPassword";
@@ -24,7 +25,7 @@ function App() {
           <Route path="update/:id" element={<UserUpdate />} />
           <Route path="read/:id" element={<UserUpdate />} />
         </Route>
-        <Route path="/sign-up" element={<SignUpForm />} />
+        <Route path="/sign-up" element={<SignUpForm2 />} />
         <Route path="/login" element={<SignInForm />} />
         <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>

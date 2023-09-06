@@ -13,59 +13,40 @@ import {
 import LockPersonIcon from "@mui/icons-material/LockPerson";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { useState } from "react";
+import { useFormik } from "formik";
 import { signUpSchema } from "./schemas";
 import { red } from '@mui/material/colors';
+import axios from "axios";
 
 function SignUpForm() {
-  const [user, setUser] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-  });
-  let {firstname: firstName, lastname: lastName, email, password} = user;
   const theme = createTheme();
 
-  const handleChange = (event) => {
-    console.log(event.target.name, event.target.value);
-    setUser({ ...user, [event.target.name]: event.target.value });
-  };
+  const initialValues = {
+    firstname: "",
+    lastname: "",
+    password: "",
+    email: "",
+  }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    //   firstname: data.get("firstName"),
-    //   lastname: data.get("lastName"),
-    // });
 
-    // const data2 = {
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    //   firstname: data.get("firstName"),
-    //   lastname: data.get("lastName"),
-    // };
-    // console.log(data2);
-
-    console.log(user);
-    
-    axios
-    .post("http://192.168.68.113:3002/users", user)
-    .then(function (response) {
-      console.log(response);
+  const {values,errors, touched, handleBlur, handleChange, handleSubmit} = useFormik({
+    initialValues,
+    validationSchema: signUpSchema,
+    onSubmit: (values,action) => {
+      console.log("submit values ",values);
+      
+      axios
+      .post("http://192.168.68.113:3002/users", values)
+      .then(function (response) {
+        console.log(response);
+        action.resetForm()
     })
     .catch(function (error) {
       console.log("Error :", error);
     });
-    
-    setUser(()=>({firstname:'',lastname:'',email:'',password:''}))
-    // event.target.reset()
-    console.log(user);
-  };
+
+    }
+  })
 
   return (
     <ThemeProvider theme={theme}>
@@ -97,49 +78,65 @@ function SignUpForm() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  name="firstname"
-                  required
+                  // required
                   fullWidth
                   id="firstName"
                   label="First Name"
+                  name="firstname"
+                  // onChange={handleChange}
+                  // value={firstName}
+                  onBlur={handleBlur}
                   onChange={handleChange}
-                  value={firstName}
+                  value={values.firstname}
                   autoFocus
                 />
+                {errors.firstname && touched.firstname ?  <Typography variant="p" color={red[500]}>{errors.firstname}</Typography> : null}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
+                  // required
                   fullWidth
                   id="lastName"
                   label="Last Name"
                   name="lastname"
-                  value={lastName}
+                  // value={lastName}
+                  // onChange={handleChange}
+                  onBlur={handleBlur}
                   onChange={handleChange}
+                  value={values.lastname}
                 />
+                {errors.lastname && touched.lastname ?  <Typography variant="p" color={red[500]}>{errors.lastname}</Typography> : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  // required
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
-                  value={email}
+                  // value={email}
+                  // onChange={handleChange}
+                  onBlur={handleBlur}
                   onChange={handleChange}
+                  value={values.email}
                 />
+                {errors.email && touched.email ?  <Typography variant="p" color={red[500]}>{errors.email}</Typography> : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  // required
                   fullWidth
                   name="password"
                   id="password"
                   label="Password"
                   type="password"
-                  value={password}
+                  // value={password}
+                  // onChange={handleChange}
+                  onBlur={handleBlur}
                   onChange={handleChange}
+                  value={values.password}
                 />
+                {errors.password && touched.password ?  <Typography variant="p" color={red[500]}>{errors.password}</Typography> : null}
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
