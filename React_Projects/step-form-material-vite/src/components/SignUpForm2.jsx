@@ -18,7 +18,7 @@ import { signUpSchema } from "./schemas";
 import { red } from '@mui/material/colors';
 import axios from "axios";
 
-function SignUpForm() {
+function SignUpForm2() {
   const theme = createTheme();
 
   const initialValues = {
@@ -168,4 +168,4 @@ function SignUpForm() {
   );
 }
 
-export default SignUpForm;
+export default SignUpForm2;
