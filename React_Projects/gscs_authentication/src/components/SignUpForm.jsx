@@ -35,7 +35,7 @@ import {
         initialValues,
         validationSchema: signUpSchema,
         onSubmit: (values,action) => {
-            console.log("submit values ",data);
+            // console.log("submit values ",data);
             // action.resetForm()
                 axios
                 .post("http://192.168.68.113:3003/auth/signup", data)
@@ -185,7 +185,7 @@ import {
               <Grid container justifyContent="flex-end" sx={{ mb: 3, mt: 2 }}>
                 <Grid item>
                   Already have an account?
-                  <Link to="/login" variant="body">
+                  <Link to="/signin" variant="body">
                     Sign in
                   </Link>
                 </Grid>

@@ -1,16 +1,16 @@
-
-import useWindowWidth from "./hooks/useWindowWidth";
-
+import useWindowWidth2 from "./hooks/useWindowsWidth2";
 
 function LayoutComponent() {
 
-  const onSmallScreen = useWindowWidth(850);
+  const deviceName = useWindowWidth2();
+
+
 
   return (
     <div>
-        <h1>You are browsing on {onSmallScreen ? 'small' : 'large'} device</h1>
+      <h1>You are browsing on {deviceName && deviceName} device</h1>
     </div>
-  )
+  );
 }
 
-export default LayoutComponent
+export default LayoutComponent;

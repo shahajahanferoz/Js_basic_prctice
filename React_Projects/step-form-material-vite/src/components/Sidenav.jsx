@@ -47,7 +47,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: drawerWidth,
@@ -65,7 +64,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function Sidenav() {
+export default function Sidenav({data:name}) {
+console.log("cheak",name);
+
   const theme = useTheme();
 //   const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
@@ -85,6 +86,7 @@ export default function Sidenav() {
         </DrawerHeader>
         <Divider />
         <List>
+          {name && name}
         <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>navigate('/')}>
               <ListItemButton
                 sx={{

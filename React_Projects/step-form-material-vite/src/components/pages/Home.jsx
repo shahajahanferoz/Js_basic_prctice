@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import Sidenav from "../Sidenav";
 import Navbar from "../Navbar";
 import { Box, Card, CardContent, Grid, Stack, Typography } from "@mui/material";
@@ -11,13 +11,14 @@ import BarChart from "../chart/BarChart";
 import CountUp from 'react-countup';
 
 function Home() {
+  const [name, setName] = useState('feroz')
   return (
     <Fragment >
       <div className="bg-color">
         <Navbar />
        <Box height={70} />
         <Box sx={{ display: "flex" }}>
-          <Sidenav />
+          <Sidenav data={name}/>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={8}>
