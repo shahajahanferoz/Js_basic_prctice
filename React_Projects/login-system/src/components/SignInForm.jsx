@@ -10,11 +10,12 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { red } from "@mui/material/colors";
-import axios from "axios";
+// import axios from "axios";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import axios from '../axiosInstance'
 
 const schema = yup
   .object({
@@ -61,7 +62,7 @@ function SignInForm() {
   });
   const onSubmit = (data) => {
     axios
-      .post(`http://192.168.68.113:3003/auth/signin`, data)
+      .post(`auth/signin`, data)
       .then(function (response) {
         console.log(response);
         const loginToken = response.data; // Adjust this line based on the actual structure of the response

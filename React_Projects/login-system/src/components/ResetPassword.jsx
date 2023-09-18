@@ -10,9 +10,11 @@ import {
 } from "@mui/material";
 import { purple } from "@mui/material/colors";
 import { red } from "@mui/material/colors";
-import axios from "axios";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
+import axios from "../axiosInstance";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ResetButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(purple[500]),
@@ -32,7 +34,12 @@ const schema = yup
   })
   .required();
 
+
 function ResetPassword() {
+
+  const [serverError, setServerError] = useState(false)
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -41,14 +48,17 @@ function ResetPassword() {
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
-    // axios
-    //   .post(`http://192.168.68.113:3003/auth/signin`, data)
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log("Error check :: ", error);
-    //   });
+    console.log(data.email);
+    axios
+      .post(`forgot/search/${data.email}`, )
+      .then(function (response) {
+        console.log(response);
+        navigate("/reset-password-otp",{state: data.email})
+      })
+      .catch(function (error) {
+        console.log("Error check :: ", error);
+        setServerError(true)
+      });
   };
 
   return (
@@ -90,8 +100,10 @@ function ResetPassword() {
                   label="Username or email"
                   variant="standard"
                 />
-                {errors.email && (
-                  <Typography variant="p" color={red[500]}> {" "}{errors.email?.message}{" "}</Typography>)}
+                {errors.email ? 
+                    ( <Typography variant="p" color={red[500]}> {" "}{errors.email?.message}{" "}</Typography>)
+                  : 
+                    (serverError && (<Typography variant="p" color={red[500]}>Your email is not found</Typography> ))}
               </Grid>
             </Grid>
 

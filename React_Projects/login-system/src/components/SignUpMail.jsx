@@ -13,7 +13,7 @@ import {
   import { yupResolver } from "@hookform/resolvers/yup"
   import * as yup from "yup" 
   import { red } from '@mui/material/colors';
-  import axios from "axios";
+import axios from '../axiosInstance'
 
   const schema = yup
   .object({
@@ -33,7 +33,7 @@ import {
             // navigate(`/signup-otp/${data.email}`)
 
       axios
-      .post("http://192.168.68.113:3003/auth/signup_otp", data)
+      .post("auth/signup_otp", data)
       .then(function (response) {
             console.log(response);
             navigate('/signup-otp',{state: data.email})

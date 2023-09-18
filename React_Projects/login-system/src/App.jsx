@@ -11,6 +11,7 @@ import Dashboard from './components/Dashboard'
 import PageNotFoundPage from './components/PageNotFoundPage'
 import PrivateOutlet from './components/PrivateOutlet'
 import ResetPassword from './components/ResetPassword'
+import ResetPasswordOtp from './components/ResetPasswordOtp'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path='signup-form' element={< SignUpForm />} />
         <Route path='signin' element={< SignInForm />} />
         <Route path='/reset-password' element={<ResetPassword />} />
+        <Route path='/reset-password-otp' element={<ResetPasswordOtp />} />
         <Route element={ <PrivateOutlet />}>
           <Route path='dashboard' element={< Dashboard />} />
         </Route>

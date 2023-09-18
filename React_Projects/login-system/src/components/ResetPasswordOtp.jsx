@@ -14,40 +14,43 @@ import {
   // import axios from "axios";
 import { useState } from "react";
 import axios from '../axiosInstance'
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 
 
+const schema = yup
+  .object({
+    newpassword: yup.string().min(8).required("please enter your password"),
+    confirmpassword: yup.string().required().oneOf([yup.ref('newpassword'),null], "password must match"), 
+  })
+  .required();
 
-  function SignUpOtp() {
+
+  function ResetPasswordOtp() {
   
 
-    const [otpMatch, setOtpMatch] = useState(false)
-    // const params = useParams();
-    // console.log("params: ", params.mail);
-    // const {mail} = params
+    const [otpError, setOtpError] = useState(false)
     const {state} = useLocation();
     const mail = state;
     const navigate = useNavigate();
-    const { register, handleSubmit, } = useForm({
+
+    const { register, handleSubmit, formState: {errors}, } = useForm({
+        resolver: yupResolver(schema),
     })
-    const onSubmit = (otp) => {
-    //   console.log("data: ", otp)
+    const onSubmit = (data) => {
+      console.log("data: ", data)
 
       axios
-      .post(`auth/signup_otp_chek/${mail}`, otp)
+      .put(`forgot/change_forgot_password/${mail}`, data)
       .then(function (response) {
-            console.log(response.status);
-            const otpToken = response.data; // Adjust this line based on the actual structure of the response
-            if( response.data && response.status === 201){
-              navigate('/signup-form',{state: { mail, otpToken}})
-            }
+            console.log(response);
+              navigate('/signin')
+            
         })
         .catch(function (error) {
               console.log("Error check :", error);
-            //   console.log("Error check :", error.response.data.statusCode);
-            if(error.response.data.statusCode === 400){
-                setOtpMatch(true)
-            }
+                setOtpError(true)
             });
     };
   
@@ -85,7 +88,25 @@ import axios from '../axiosInstance'
                     label="OTP"
                     {...register("otp", { required: true })}
                   />
-                  {otpMatch &&  <Typography variant="p" color={red[500]}>Yout given OTP is not match</Typography>}
+                  {(!errors.confirmpassword && otpError) &&  <Typography variant="p" color={red[500]}>Yout given OTP is not match</Typography>}
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    id="newpassword"
+                    label="new Password"
+                    {...register("newpassword", { required: true })}
+                  />
+                  {errors.newpassword && <Typography variant="p" color={red[500]}>{errors.newpassword?.message}</Typography>}
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    id="confirmpassword"
+                    label="confirm Password"
+                    {...register("confirmpassword", { required: true })}
+                  />
+                  {errors.confirmpassword && <Typography variant="p" color={red[500]}>{errors.confirmpassword?.message}</Typography> }
                 </Grid>
               </Grid>
               <Button
@@ -99,8 +120,8 @@ import axios from '../axiosInstance'
               <Grid container justifyContent="flex-end" sx={{ mb: 3, mt: 2 }}>
                 <Grid item>
                   Back to Email Field {""}
-                  <Link to="/signup-email" variant="body">
-                    Sign up mail
+                  <Link to="/reset-password" variant="body">
+                    Reset Password
                   </Link>
                 </Grid>
               </Grid>
@@ -110,5 +131,5 @@ import axios from '../axiosInstance'
     );
   }
   
-  export default SignUpOtp;
+  export default ResetPasswordOtp;
   
