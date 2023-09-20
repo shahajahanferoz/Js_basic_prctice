@@ -69,7 +69,7 @@ console.log("cheak",name);
 
   const theme = useTheme();
 //   const [open, setOpen] = React.useState(true);
-  const navigate = useNavigate();
+  const navigate = useNavigate(component);
   const open = useAppStore((state) => state.dopen);
 
 
