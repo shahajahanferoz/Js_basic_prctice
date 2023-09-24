@@ -18,6 +18,10 @@ import axios from '../axiosInstance'
 
 
 
+// interface OtpFormData {
+//   otp: string;
+// }
+
   function SignUpOtp() {
   
 
@@ -28,13 +32,13 @@ import axios from '../axiosInstance'
     const {state} = useLocation();
     const mail = state;
     const navigate = useNavigate();
-    const { register, handleSubmit, } = useForm({
-    })
-    const onSubmit = (otp:string) => {
-    //   console.log("data: ", otp)
+    const { register, handleSubmit, } = useForm<{otp:string}>({})
+
+    const onSubmit = (data: {otp: string}) => {
+      console.log("data: ", data)
 
       axios
-      .post(`auth/signup_otp_chek/${mail}`, otp)
+      .post(`auth/signup_otp_chek/${mail}`, data)
       .then(function (response) {
             console.log(response.status);
             const otpToken = response.data; // Adjust this line based on the actual structure of the response

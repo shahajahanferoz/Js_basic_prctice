@@ -18,18 +18,27 @@ import {
   import { red } from '@mui/material/colors';
   import axios from "axios";
 
+
+  interface SignUpFormData {
+  firstname: string;
+  lastname: string;
+  phone: string;
+  password: string;
+  confirmpassword: string;
+}
+
   const schema = yup
   .object({
     firstname:yup.string().min(2).max(25).required("please Enter your first name"),
     lastname:yup.string().min(2).max(25).required("please Enter your last name"),
     phone: yup.string().required("Please enter your phone number").matches(/^01\d{9}/g,"Invalid Phone Number"),
     password: yup.string().min(8).required("please enter your password"),
-    confirmpassword: yup.string().required().oneOf([yup.ref('password'),null], "password must match"), 
+    confirmpassword: yup.string().required().oneOf([yup.ref('password'),], "password must match"), 
   })
   .required()
 
     // Function to set a cookie
-function setCookie(name, value, options = {}) {
+function setCookie(name: string, value: string, options = {}) {
   if (options.expires instanceof Date) {
     options.expires = options.expires.toUTCString();
   }
@@ -37,9 +46,9 @@ function setCookie(name, value, options = {}) {
   let updatedCookie =
   encodeURIComponent(name) + "=" + encodeURIComponent(value);
   
-  for (let optionKey in options) {
+  for (const optionKey in options) {
     updatedCookie += "; " + optionKey;
-    let optionValue = options[optionKey];
+    const optionValue = options[optionKey];
     if (optionValue !== true) {
       updatedCookie += "=" + optionValue;
     }
@@ -57,10 +66,10 @@ function setCookie(name, value, options = {}) {
     // console.log(state);
     const {mail,otpToken} = state;
     const navigate = useNavigate();
-    const { register, handleSubmit, formState: {errors}, } = useForm({
+    const { register, handleSubmit, formState: {errors}, } = useForm<SignUpFormData>({
       resolver: yupResolver(schema),
     })
-    const onSubmit = (data) => {
+    const onSubmit = (data: SignUpFormData) => {
       // console.log("dataaaaaaa: ", data)
       const registerData = {
         first_name: data.firstname,
@@ -190,4 +199,9 @@ function setCookie(name, value, options = {}) {
   }
   
   export default SignUpForm;
-  
+
+
+
+
+
+

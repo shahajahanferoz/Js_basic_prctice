@@ -17,6 +17,12 @@ import {
   import { useState } from "react";
   import axios from '../axiosInstance'
   
+
+interface FormData {
+  email: string;
+  password: string;
+}
+
   const schema = yup
     .object({
       email: yup
@@ -28,7 +34,7 @@ import {
     .required();
   
   // Function to set a cookie
-  function setCookie(name, value, options = {}) {
+  function setCookie(name:string, value: string, options = {}) {
     if (options.expires instanceof Date) {
       options.expires = options.expires.toUTCString();
     }
@@ -60,7 +66,8 @@ import {
     } = useForm({
       resolver: yupResolver(schema),
     });
-    const onSubmit = (data) => {
+
+    const onSubmit = (data: FormData) => {
       axios
         .post(`auth/signin`, data)
         .then(function (response) {
@@ -139,7 +146,7 @@ import {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link to="/reset-password" variant="body2">
+                <Link to="/reset-password" variant ="body2">
                   Forgot password?
                 </Link>
               </Grid>
@@ -157,4 +164,9 @@ import {
   }
   
   export default SignInForm;
+
+
+
+
+
   

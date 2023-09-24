@@ -14,6 +14,11 @@ import {
   import * as yup from "yup" 
   import { red } from '@mui/material/colors';
 import axios from '../axiosInstance'
+import { useState } from "react";
+
+// interface FormData {
+//   email: string;
+// }
 
   const schema = yup
   .object({
@@ -24,11 +29,12 @@ import axios from '../axiosInstance'
   function SignUpMail() {
   
 
+    const [existAccount, setExistAccount] = useState(false)
     const navigate = useNavigate();
     const { register, handleSubmit, formState: {errors}, } = useForm({
       resolver: yupResolver(schema),
     })
-    const onSubmit = (data) => {
+    const onSubmit = (data: {email: string}) => {
       console.log("data: ", data)
             // navigate(`/signup-otp/${data.email}`)
 
@@ -40,6 +46,9 @@ import axios from '../axiosInstance'
         })
         .catch(function (error) {
               console.log("Error :", error);
+              if(error.message =="Request failed with status code 406"){
+                setExistAccount(true)
+              }
             });
     };
   
@@ -78,6 +87,7 @@ import axios from '../axiosInstance'
                     {...register("email", { required: true })}
                   />
                   {errors.email &&  <Typography variant="p" color={red[500]}>{errors.email?.message}</Typography>}
+                  {!errors.email && existAccount && <Typography variant="p" color={red[500]}>This Mail already have an account</Typography>}
                 </Grid>
               </Grid>
               <Button
